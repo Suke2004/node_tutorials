@@ -8,6 +8,7 @@ function monitor(){
     const oldCpus = os.cpus();
     // console.log(`old: ${oldCpus}`);
     setTimeout(()=>{
+        console.clear();
         const newCpus = os.cpus();
         const usage = newCpus.map((cpu,i)=>{
             return{
@@ -15,11 +16,18 @@ function monitor(){
                 usage: calculateCpu(oldCpus[i], newCpus[i])
             };
         });
-        console.clear();
+        
+        console.log(chalk.bgBlue('=======System Stats======='));
         console.table(usage);
         
         const usedMemory = ((os.totalmem() - os.freemem())/(1024*1024*1024));
-        console.log(`Memory usage: ${(usedMemory).toFixed(2)} GB/${(os.totalmem()/(1024*1024*1024)).toFixed(2)} GB`);
+
+        console.log('memory used:',
+            usedMemory > 11
+            ? chalk.redBright(`Memory usage: ${(usedMemory).toFixed(2)} GB/${(os.totalmem()/(1024*1024*1024)).toFixed(2)} GB
+            `): chalk.greenBright(`Memory usage: ${(usedMemory).toFixed(2)} GB/${(os.totalmem()/(1024*1024*1024)).toFixed(2)} GB`)
+        );
+    //     console.log(`Memory usage: ${(usedMemory).toFixed(2)} GB/${(os.totalmem()/(1024*1024*1024)).toFixed(2)} GB`);
     },1000);
 }
 
