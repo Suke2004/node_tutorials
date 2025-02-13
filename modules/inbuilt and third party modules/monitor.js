@@ -1,4 +1,5 @@
 import os from 'node:os';
+import chalk from 'chalk';
 
 function monitor(){
     //Take snapshot
