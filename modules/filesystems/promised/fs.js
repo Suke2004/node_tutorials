@@ -1,4 +1,5 @@
 import * as fs from 'node:fs/promises';
+import path from 'node:path';
 
 // async function createFile(pathname){
 //     try{
@@ -9,7 +10,7 @@ import * as fs from 'node:fs/promises';
 //     console.log("File created successfully");
 // }
 
-async function createFolder(foldername){
+export async function createFolder(foldername){
     try{
         await fs.mkdir(foldername,{recursive: true});
     }catch(err){
@@ -18,7 +19,7 @@ async function createFolder(foldername){
     console.log("Directory created successfully");
 }
 
-async function createFile(filepath,content=''){
+export async function createFile(filepath,content=''){
     try{
         await fs.writeFile(filepath,content)
     }catch(err){
@@ -27,7 +28,7 @@ async function createFile(filepath,content=''){
     console.log("File created successfully");
 }
 
-async function writeToFile(filepath,content = ''){
+export async function writeToFile(filepath,content = ''){
     try{
         await fs.appendFile(filepath,content);
     }catch(err){
@@ -45,7 +46,7 @@ async function readFile(filepath){
     console.log(data);
 }
 
-async function deleteFile(filepath){
+export async function deleteFile(filepath){
     try{
         await fs.unlink(filepath);
     }catch(err){
@@ -53,7 +54,7 @@ async function deleteFile(filepath){
     }
 }
 
-async function deleteFolder(folderpath){
+export async function deleteFolder(folderpath){
     try{
         await fs.rmdir(folderpath,{recursive: true});
     }
@@ -63,7 +64,7 @@ async function deleteFolder(folderpath){
     console.log("Directory has been successfully deleted");
 }
 
-async function getFileInfo(filepath){
+export async function getFileInfo(filepath){
     const stats = await fs.stat(filepath);
     // console.log(stats);
     return {
@@ -74,6 +75,16 @@ async function getFileInfo(filepath){
     }
 }
 
+export async function listItems(listPath = './'){
+    const items = await fs.readdir(listPath,{withFileTypes: true});
+    return items.map((item)=>{
+        return{
+            name: item.name,
+            type: item.isDirectory()? 'folder':'file',
+            path: path.join(import.meta.dirname,item.name)
+        }
+    });
+}
 
 // createFile("promises.txt","hello Potter");
 getFileInfo("./promises.txt").then((data)=>{
