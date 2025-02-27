@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Real-time Counter</title>
+    <script>
+        let token = localStorage.getItem("token");
+
+        async function login() {
+            const username = prompt("Enter username:");
+            const password = prompt("Enter password:");
+            const res = await fetch("/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ username, password }),
+            });
+            const data = await res.json();
+            if (data.token) {
+                token = data.token;
+                localStorage.setItem("token", token);
+                alert("Logged in!");
+                fetchCounter();
+            } else {
+                alert("Login failed");
+            }
+        }
+
+        async function fetchCounter() {
+            const res = await fetch("/counter", {
+                headers: { Authorization: `Bearer ${token}` },
+            });
+            const data = await res.json();
+            document.getElementById("counter").innerText = `Counter: ${data.counter}`;
+        }
+
+        async function incrementCounter() {
+            await fetch("/increment", {
+                method: "POST",
+                headers: { Authorization: `Bearer ${token}` },
+            });
+            fetchCounter();
+        }
+
+        async function resetCounter() {
+            await fetch("/reset", {
+                method: "POST",
+                headers: { Authorization: `Bearer ${token}` },
+            });
+            fetchCounter();
+        }
+
+        function setupWebSocket() {
+            const ws = new WebSocket("ws://localhost:3000");
+            ws.onmessage = (event) => {
+                const chatBox = document.getElementById("chat");
+                chatBox.innerHTML += `<p>${event.data}</p>`;
+            };
+
+            document.getElementById("sendBtn").onclick = () => {
+                const message = document.getElementById("chatInput").value;
+                ws.send(message);
+                document.getElementById("chatInput").value = "";
+            };
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            if (token) fetchCounter();
+            setupWebSocket();
+        });
+    </script>
+</head>
+<body>
+    <h1>Advanced Real-time Counter</h1>
+    <h2 id="counter">Loading...</h2>
+    <button onclick="login()">Login</button>
+    <button onclick="incrementCounter()">Increment</button>
+    <button onclick="resetCounter()">Reset</button>
+
+    <h2>Chat System</h2>
+    <div id="chat"></div>
+    <input type="text" id="chatInput" placeholder="Type a message">
+    <button id="sendBtn">Send</button>
+</body>
+</html>
