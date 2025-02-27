@@ -1,6 +1,6 @@
-# 🚀 Full-Stack WebSocket API with Authentication & AI-Powered Features  
+# 🚀 Full-Stack WebSocket API with Authentication & AI-Powered Features
 
-This project is a **full-stack API** built with **Node.js, Express, WebSockets, and MongoDB**, providing **authentication, file uploads, real-time notifications, AI-powered predictions, and admin dashboard insights**.  
+This project is a **full-stack API** built with **Node.js, Express, WebSockets, and MongoDB**, providing **authentication, file uploads, real-time notifications, AI-powered predictions, and admin dashboard insights**.
 
 ## ✨ **Features**
 - 🔒 **JWT Authentication** - Secure user login and token-based access.
@@ -16,7 +16,7 @@ This project is a **full-stack API** built with **Node.js, Express, WebSockets, 
 ## 🛠️ **Installation**
 ### 1️⃣ **Clone the Repository**
 ```bash
-git clone https://github.com/yourusername/fullstack-websocket-api.git
+git clone https://github.com/Suke2004/fullstack-websocket-api.git
 cd fullstack-websocket-api
 ```
 
@@ -25,7 +25,7 @@ cd fullstack-websocket-api
 npm install
 ```
 
-### 3️⃣ **Set Up Environment Variables**  
+### 3️⃣ **Set Up Environment Variables**
 Create a `.env` file and add:
 ```plaintext
 PORT=3000
@@ -119,18 +119,15 @@ ws.onmessage = (event) => console.log("New Message:", event.data);
 ---
 
 ## 👨‍💻 **Contributors**
-- **Your Name** - *Developer*
+- **SUKESH REDDY** - *Developer*
 - Open for contributions! 🚀
-
-📌 **License:** MIT  
-📌 **Version:** 1.0.0  
 
 ---
 
 ## 📢 **Contact & Support**
 Have questions? Feel free to reach out!  
-💎 Email: your-email@example.com  
-💙 GitHub: [Your GitHub](https://github.com/yourusername)
+💎 Email: lyricsofsongs96@gmail.com 
+💙 GitHub: [Your GitHub](https://github.com/Suke2004)
 
 ---
 
